@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import LoginView from "./views/LoginView";
 import RegisterView from "./views/RegisterView";
 import LoginLayout from "./layouts/LoginLayout";
@@ -16,13 +16,12 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route element={<LoginLayout/>}>
+          <Route index element={<Navigate to="/login"/>}/>
           <Route path="/login" element={<LoginView />}/>
           <Route path="/register" element={<RegisterView />}/>
         </Route>
-      </Routes>
-
-      <Routes>
         <Route element={<DashboardLayout/>}>
+          <Route index element={<AllPasswordsView />}/>
           <Route path="/passwords" element={<AllPasswordsView/>}/>
           <Route path="/passwords/new" element={<CreatePasswordView/>}/>
           <Route path="/passwords/edit/:passwordId" element={<UpdatePasswordView/>}/>

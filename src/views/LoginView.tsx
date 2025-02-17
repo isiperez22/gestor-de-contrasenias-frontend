@@ -6,10 +6,12 @@ import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../api/authAPI";
 import { TbEye, TbEyeClosed } from "react-icons/tb";
 import { useState } from "react";
+import ErrorMessageForm from "../components/ErrorMessageForm";
 
 export default function LoginView() {
 
   const [isVisible, setIsVisible] = useState(false)
+  const [isError , setIsError] = useState('')
 
   const initialValues: LoginUser = {
     email: '',
@@ -30,7 +32,7 @@ export default function LoginView() {
         localStorage.setItem('AUTH_TOKEN', data.token);
         navigate('/passwords');
       } else {
-        console.error('Token no recibido');
+        setIsError('Error en las credenciales')
       }
     }
   })
@@ -99,7 +101,10 @@ export default function LoginView() {
         <input
           type="submit"
           value="Iniciar sesion"
-          className="text-xl w-full p-3 font-semibold uppercase text-white bg-green-600 hover:bg-green-500" />
+          className="text-xl w-full p-3 font-semibold uppercase text-white bg-green-600 hover:bg-green-500" 
+          />
+
+          {isError && <ErrorMessageForm>{isError}</ErrorMessageForm>}
 
       </form>
 
